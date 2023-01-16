@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Pet from "./Pet";
+import useBreedList from "./useBreedList";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
@@ -6,7 +8,22 @@ const SearchParams = () => {
   const [location, updateLocation] = useState("bihar");
   const [animal, updateAnimal] = useState("");
   const [breed, setBreed] = useState("");
-  const breeds = [];
+  const [pets, setPets] = useState([]);
+
+  //custom hooks
+  const [breeds] = useBreedList(animal);
+
+  useEffect(() => {
+    requestPets();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  async function requestPets() {
+    const res = await fetch(
+      `http://pets-v2.dev-apis.com/pets?animal=${animal}&location=${location}&breed=${breed}`
+    );
+    const json = await res.json();
+
+    setPets(json.pets);
+  }
 
   return (
     <div className="search-params">
@@ -60,6 +77,14 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
+      {pets.map((pet) => (
+        <Pet
+          name={pet.name}
+          animal={pet.animal}
+          breed={pet.breed}
+          key={pet.id}
+        />
+      ))}
     </div>
   );
 };
@@ -67,7 +92,11 @@ const SearchParams = () => {
 export default SearchParams;
 
 /*
-className, htmlFor is used because for is a reserved word in JS.
-onChange={(e) => updateLocation(e.target.value)} it will render at every event 
+1. className, htmlFor is used because for is a reserved word in JS..
+2. onChange={(e) => updateLocation(e.target.value)} it will render at every event 
+
+3. useEffect allows you to say "do a render of this component first so the user can see 
+   something then as soon as the render is done, then do something
+
 
 */
