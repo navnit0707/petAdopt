@@ -1,10 +1,16 @@
+import { useState } from "react";
 const SearchParams = () => {
+  cont[(location, updateLocation)] = useState();
   return (
     <div className="searach-Params">
       <form>
         <label htmlFor="location">
-          Location{" "}
-          <input id="location" value={location} placeholder={location} />
+          <input
+            id="location"
+            value={location}
+            placeholder="Location"
+            onChange={(e) => updateLocation(e.target.value)}
+          />
         </label>
         <button>Submit</button>
       </form>
