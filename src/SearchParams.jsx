@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Pet from "./Pet";
+import Results from "./Results";
 import useBreedList from "./useBreedList";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
@@ -27,7 +27,12 @@ const SearchParams = () => {
 
   return (
     <div className="search-params">
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          requestPets();
+        }}
+      >
         <label htmlFor="location">
           <input
             id="location"
@@ -77,14 +82,7 @@ const SearchParams = () => {
         </label>
         <button>Submit</button>
       </form>
-      {pets.map((pet) => (
-        <Pet
-          name={pet.name}
-          animal={pet.animal}
-          breed={pet.breed}
-          key={pet.id}
-        />
-      ))}
+      <Results pets={pets} />
     </div>
   );
 };
@@ -97,6 +95,11 @@ export default SearchParams;
 
 3. useEffect allows you to say "do a render of this component first so the user can see 
    something then as soon as the render is done, then do something
+
+4.  const [breeds] = useBreedList(animal); since animal wil be updated so this custoomhook will return 
+    a list of breeds (including an empty list when it doesn't have anything in it) and an enumerated type 
+    of the status of the hook: unloaded, loading, or loaded.
+
 
 
 */
