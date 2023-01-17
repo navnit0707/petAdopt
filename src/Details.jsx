@@ -29,7 +29,13 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default function DetailsErrorBoundary(props) {
+  return (
+    <ErrorBoundary>
+      <Details {...props} />
+    </ErrorBoundary>
+  );
+}
 
 /**
  * 1. useQuery will  use the queryClient that we instantiated above via context
@@ -38,5 +44,5 @@ export default Details;
  *    Therefore we must handle the isLoading case.
  * 3. the first time it will load it and the second time it won't of we back and forward page ;
  *    it'll just pull it from the cache because of caching
- *
+ *4.
  */
