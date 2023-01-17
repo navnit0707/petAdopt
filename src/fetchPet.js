@@ -15,4 +15,5 @@ export default fetchPet;
  * js file and jsx file often treated as same , but for convention people
  * use jsx when there is ui stuff which is realated to js , and when there is
  * only logic we use js
+ * react-query is a built in caching layer for these async data stores that works really well within the constraints of React.
  */
