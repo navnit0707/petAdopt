@@ -36,7 +36,10 @@ export default function useBreedList(animal) {
  * We're tossing in localCache so if it loads once, it won't have to reload the same API call in the same session.
  * advance :use local storage
  *
+ * React has the ability to render, make a request to an async data source (like an API),
+ * and then re-render after the new data comes in. useEffect accomplishes this goal precisely.
  *
  *
+ *react-query from tenstack :  react-query is going to do for you: it's a built in caching layer for these async data stores that works really well within the constraints of React
  *
  */
